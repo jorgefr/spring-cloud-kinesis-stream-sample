@@ -1,0 +1,40 @@
+cloud.aws.region.static: <region>
+
+spring:
+  main.bannerMode: 'off'
+  cloud.stream:
+    default:
+      contentType: application/json
+    bindings:
+      input:
+        destination: <input-stream-name>
+        group: <application-group>
+        contentType: application/json
+        consumer:
+          concurrency: 1
+          partitioned: false
+      output:
+        destination: <output-stream-name>
+        contentType: application/json
+        binder: myBinder
+    binders:
+      myBinder:
+        type: kinesis
+        defaultCandidate: false
+        environment:
+          spring:
+            main.sources: com.samples.config.KinesisOutputConfiguration
+#            main.additionalProfiles: output
+#            cloud:
+#              bootstrap:
+#                enabled: false
+    kinesis:
+      bindings.input.consumer.requeueRejected: false
+      binder:
+        checkpoint.table: <checkpoint table>
+        locks.table: <locks table>
+
+
+com.samples.aws:
+  iam.role.arn: <role-to-assume-arn>
+  sts.assumeRole.sessionName: mysession
