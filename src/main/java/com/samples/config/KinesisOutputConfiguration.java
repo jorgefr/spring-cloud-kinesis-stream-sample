@@ -11,12 +11,10 @@ import org.springframework.cloud.aws.core.region.RegionProvider;
 import org.springframework.cloud.aws.core.region.StaticRegionProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 @Slf4j
 @ToExcludeFromAppContext
 @Configuration
-//@Profile("output")
 public class KinesisOutputConfiguration {
   @Value("${com.samples.aws.iam.role.arn}")
   private String rrsIamRoleArn;
@@ -39,13 +37,11 @@ public class KinesisOutputConfiguration {
   }
 
   @Bean
-  @Primary
   public AWSCredentialsProvider awsCredentialsProvider() {
     return new DefaultAWSCredentialsProviderChain();
   }
 
   @Bean
-  @Primary
   public RegionProvider regionProvider() {
     return new StaticRegionProvider(region);
   }

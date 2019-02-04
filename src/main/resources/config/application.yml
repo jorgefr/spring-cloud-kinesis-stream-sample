@@ -21,13 +21,10 @@ spring:
       myBinder:
         type: kinesis
         defaultCandidate: false
+        inheritEnvironment: false
         environment:
           spring:
             main.sources: com.samples.config.KinesisOutputConfiguration
-#            main.additionalProfiles: output
-#            cloud:
-#              bootstrap:
-#                enabled: false
     kinesis:
       bindings.input.consumer.requeueRejected: false
       binder:
