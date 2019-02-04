@@ -1,7 +1,9 @@
 cloud.aws.region.static: <region>
 
 spring:
-  main.bannerMode: 'off'
+  jmx:
+    default-domain: "default-domain"
+  main.banner-mode: 'off'
   cloud.stream:
     default:
       contentType: application/json
@@ -21,13 +23,10 @@ spring:
       myBinder:
         type: kinesis
         defaultCandidate: false
+#        inheritEnvironment: false
         environment:
           spring:
-            main.sources: com.samples.config.KinesisOutputConfiguration
-#            main.additionalProfiles: output
-#            cloud:
-#              bootstrap:
-#                enabled: false
+            profiles.active: output
     kinesis:
       bindings.input.consumer.requeueRejected: false
       binder:
